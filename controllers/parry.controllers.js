@@ -478,15 +478,36 @@ subComment.save().then((subComment) => {
 }
 
 exports.mySpots = async (req, res) => {
-   const userId = req.body.user._id
-   Flow.find({user:userId}).then((data) => {
-    res.send({
-        success:'true',
-        message:"All Spots !!",
-        data:data
-    })
-})
+  // if (!req.body.user || !req.body.user._id) {
+  //    res.status(400).send({
+  //       success: false,
+  //       message: "User ID not provided in request body",
+  //       data: null
+  //    });
+  //    return;
+  // }
+
+  const userId = req.user._id
+  Flow.find({user:userId}).then((data) => {
+   res.send({
+       success:'true',
+       message:"All Spots !!",
+       data:data
+   })
+  })
 }
+
+
+// exports.mySpots = async (req, res) => {
+//    const userId = req.body.user._id
+//    Flow.find({user:userId}).then((data) => {
+//     res.send({
+//         success:'true',
+//         message:"All Spots !!",
+//         data:data
+//     })
+// })
+// }
 
 exports.myProfile = async (req, res) => {
   const profile = new Profile ({
